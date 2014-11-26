@@ -1,21 +1,36 @@
+class Frame
+  def full?
+    false
+  end
+end
+
+
 class BowlingGame
 	
   def initialize
     @frames = []
+    @score  = 0
   end
 
   def roll(pins)
-    @frames.push pins
+    if @frames.empty? || @frames.last.full?
+      @frames.push(Frame.new)
+    end
+
+    current_frame = @frames.last
+
+    @score += pins
+
+    # current_frame.add_score(pins)
+
+    # if current_frame.strike?
+    #   apply_bonus
+    # end
+
 	end
 
   def score
-    @frames.reduce &:+
-    #### equivalent to:
-    # total = 0
-    # @frames.each do |frame|
-    #   total += frame
-    # end
-    # total
+    @score
   end
 
   def print_status
